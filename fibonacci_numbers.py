@@ -10,12 +10,13 @@ def memoize(func):
         return cache[key]
     return memoized_func
 
-@memoize
+# naive recursion
 def fib_rec(n):
     if n<=1:
         return n
     return fib_rec(n-1) + fib_rec(n-2)
 
+# memoization (tabulation)
 def fib_mem(n, cache):
     if n == 0 or n == 1:
         cache[n] = n
@@ -25,6 +26,7 @@ def fib_mem(n, cache):
 
     return cache[n]
 
+# tabulation (buttom-up approach)
 def fib_tab(n):
     f = [0] * (n+1)
     f[1] = 1

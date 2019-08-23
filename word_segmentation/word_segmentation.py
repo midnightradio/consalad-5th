@@ -24,12 +24,12 @@ class DynamicProgrammingSearch(object):
     def __init__(self, memory_use=True, verbose=0):
         self.memory_use = memory_use
         if memory_use:
-            self.future_dict = {}
+            self.subproblem_cache = {}
         self.verbose = verbose
 
     def suboptimal(self, state):
-        if self.memory_use and state in self.future_dict:
-            min_actions, min_cost, num_visited = self.future_dict[state]
+        if self.memory_use and state in self.subproblem_cache:
+            min_actions, min_cost, num_visited = self.subproblem_cache[state]
             return min_actions, min_cost, 1
 
         # check whether it's in the last state
@@ -52,7 +52,7 @@ class DynamicProgrammingSearch(object):
                     min_actions = [action] + f_actions
 
         if self.memory_use:
-            self.future_dict[state] = min_actions, min_cost, num_visited
+            self.subproblem_cache[state] = min_actions, min_cost, num_visited
 
         return min_actions, min_cost, num_visited
 
